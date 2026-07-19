@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urban Loom — Clothing Co.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F2EBE0;
+    --bg-card: #FFFFFF;
+    --ink: #221E1A;
+    --muted: #7A7269;
+    --line: rgba(34,30,26,0.12);
+
+    --c-tshirts: #C1613B;
+    --c-shirts: #6B7052;
+    --c-trousers: #5C4433;
+    --c-lowers: #C99A3C;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(242,235,224,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-inner{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+
+  nav.main-nav{
+    display: flex;
+    gap: 32px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  nav.main-nav a{ color: var(--muted); transition: color 0.2s; }
+  nav.main-nav a:hover{ color: var(--ink); }
+
+  .bag{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    font-weight: 700;
+    border: 1px solid var(--ink);
+    padding: 8px 16px;
+    border-radius: 100px;
+    cursor: default;
+  }
+  .bag-count{
+    background: var(--ink);
+    color: var(--bg);
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 90px 28px 70px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .hero-kicker{
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--c-tshirts);
+    margin-bottom: 18px;
+  }
+
+  .hero h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(38px, 5.4vw, 62px);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 em{
+    font-style: italic;
+    font-weight: 500;
+    color: var(--c-tshirts);
+  }
+
+  .hero p{
+    margin-top: 22px;
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+
+  .hero-cta{
+    margin-top: 30px;
+    display: inline-block;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 15px 30px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+  }
+
+  .hero-visual{
+    aspect-ratio: 4/3.2;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 25% 20%, rgba(255,255,255,0.35), transparent 45%),
+      linear-gradient(150deg, var(--c-tshirts) 0%, var(--c-trousers) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-visual svg{ width: 46%; opacity: 0.92; }
+
+  /* ---------- CATEGORY NAV ---------- */
+  .cat-nav-wrap{
+    position: sticky;
+    top: 61px;
+    z-index: 40;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cat-nav{
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+    padding: 16px 28px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .cat-nav::-webkit-scrollbar{ display:none; }
+
+  .cat-pill{
+    flex: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px 18px;
+    border-radius: 100px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .cat-pill .dot{
+    width: 7px; height: 7px;
+    border-radius: 50%;
+  }
+  .cat-pill.active{
+    color: #fff;
+    border-color: transparent;
+  }
+
+  /* ---------- PRODUCT GRID ---------- */
+  main{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 44px 28px 30px;
+  }
+
+  .category-block{
+    margin-bottom: 56px;
+  }
+
+  .category-title{
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
+  .category-title h2{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 26px;
+  }
+
+  .category-title .count{
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .product-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 24px;
+  }
+
+  .product-card{
+    background: var(--bg-card);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .product-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 16px 30px -14px rgba(34,30,26,0.25);
+  }
+
+  .product-photo{
+    aspect-ratio: 4/5;
+    position: relative;
+    overflow: hidden;
+    background: #EFE7DA;
+  }
+
+  .product-photo img{
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .placeholder-fill{
+    position: absolute; inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .placeholder-fill svg{ width: 34%; opacity: 0.85; }
+  .placeholder-fill span{
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(34,30,26,0.4);
+  }
+
+  .cat-tag{
+    position: absolute;
+    top: 12px; left: 12px;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 100px;
+  }
+
+  .product-info{
+    padding: 16px 16px 18px;
+  }
+
+  .product-info h3{
+    font-size: 14.5px;
+    font-weight: 700;
+  }
+
+  .product-info .desc{
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  .product-bottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 14px;
+  }
+
+  .price{
+    font-weight: 800;
+    font-size: 15px;
+  }
+
+  .add-btn{
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border: 1px solid var(--ink);
+    background: transparent;
+    padding: 8px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .add-btn:hover{
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .add-btn.added{
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  /* ---------- FOOTER / CONTACT ---------- */
+  footer{
+    margin-top: 40px;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 60px 28px 34px;
+  }
+
+  .footer-inner{
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 40px;
+  }
+
+  .footer-inner h3{
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .footer-inner p, .footer-inner li{
+    font-size: 13.5px;
+    color: rgba(242,235,224,0.68);
+    line-height: 1.9;
+  }
+
+  .footer-col h4{
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(242,235,224,0.5);
+    margin-bottom: 14px;
+  }
+
+  ul{ list-style: none; }
+
+  .hours-row{
+    display: flex;
+    justify-content: space-between;
+    max-width: 220px;
+    font-size: 13.5px;
+    color: rgba(242,235,224,0.68);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(242,235,224,0.08);
+  }
+
+  .footer-bottom{
+    max-width: 1180px;
+    margin: 46px auto 0;
+    padding-top: 22px;
+    border-top: 1px solid rgba(242,235,224,0.12);
+    font-size: 11.5px;
+    color: rgba(242,235,224,0.45);
+    text-align: center;
+  }
+
+  @media (max-width: 860px){
+    .hero{ grid-template-columns: 1fr; }
+    .footer-inner{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">Urban Loom</div>
+    <nav class="main-nav">
+      <a href="#shop">Shop</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="bag">🛍 Bag <span class="bag-count" id="bagCount">0</span></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <div class="hero-kicker">New Season Edit</div>
+    <h1>Everyday wear,<br><em>made to last.</em></h1>
+    <p>Honest fabrics, considered fits — t-shirts, shirts, trousers and lowers built for daily rotation, not the back of your closet.</p>
+    <button class="hero-cta" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop the Collection</button>
+  </div>
+  <div class="hero-visual">
+    <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round">
+      <path d="M30 15 L15 25 L22 38 L30 33 V85 H70 V33 L78 38 L85 25 L70 15 Q65 24 50 24 Q35 24 30 15 Z"/>
+    </svg>
+  </div>
+</section>
+
+<div class="cat-nav-wrap">
+  <div class="cat-nav" id="catNav"></div>
+</div>
+
+<main id="shop">
+  <div id="productSections"></div>
+</main>
+
+<footer id="contact">
+  <div class="footer-inner">
+    <div>
+      <h3>Urban Loom</h3>
+      <p>123 MI Road, near City Plaza,<br>Jaipur, Rajasthan — 302001</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li>Owner: Rajesh Sharma</li>
+        <li>Phone: +91 98765 43210</li>
+        <li>Email: hello@urbanloom.store</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Store Hours</h4>
+      <div class="hours-row"><span>Mon – Sat</span><span>10:30 AM – 9:00 PM</span></div>
+      <div class="hours-row"><span>Sunday</span><span>11:00 AM – 6:00 PM</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 URBAN LOOM CLOTHING CO. · PLACEHOLDER NAME &amp; CONTACT DETAILS — REPLACE WITH REAL INFO</div>
+</footer>
+
+<script>
+// ---------------- CATEGORY ICONS (used in placeholder tiles) ----------------
+const ICONS = {
+  "tshirts": `<svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"><path d="M30 15 L15 25 L22 38 L30 33 V85 H70 V33 L78 38 L85 25 L70 15 Q65 24 50 24 Q35 24 30 15 Z"/></svg>`,
+  "shirts": `<svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"><path d="M32 14 L16 24 L23 37 L32 31 V86 H68 V31 L77 37 L84 24 L68 14 Q64 22 50 22 Q36 22 32 14 Z"/><line x1="50" y1="24" x2="50" y2="86"/><circle cx="50" cy="38" r="1.6" fill="#fff"/><circle cx="50" cy="52" r="1.6" fill="#fff"/><circle cx="50" cy="66" r="1.6" fill="#fff"/></svg>`,
+  "trousers": `<svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"><path d="M28 12 H72 L75 88 H58 L50 40 L42 88 H25 Z"/><line x1="28" y1="12" x2="72" y2="12"/></svg>`,
+  "lowers": `<svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"><path d="M26 12 H74 L77 82 Q77 88 70 88 H60 L52 42 L48 88 H30 Q23 88 23 82 Z"/><line x1="26" y1="24" x2="74" y2="24"/></svg>`
+};
+
+const CATEGORIES = [
+  { id: "tshirts",  name: "T-Shirts",  color: "var(--c-tshirts)" },
+  { id: "shirts",   name: "Shirts",    color: "var(--c-shirts)" },
+  { id: "trousers", name: "Trousers",  color: "var(--c-trousers)" },
+  { id: "lowers",   name: "Lowers",    color: "var(--c-lowers)" },
+];
+
+// One product photo file expected at images/<slug>.jpg — drop a real photo
+// in with that exact filename and it replaces the placeholder automatically.
+const PRODUCTS = [
+  { cat: "tshirts", slug: "classic-crew-tee", name: "Classic Crew Tee", desc: "100% combed cotton, regular fit", price: 599 },
+  { cat: "tshirts", slug: "graphic-print-tee", name: "Graphic Print Tee", desc: "Screen-printed, relaxed fit", price: 699 },
+  { cat: "tshirts", slug: "henley-tee", name: "Henley Tee", desc: "Button placket, waffle knit", price: 749 },
+
+  { cat: "shirts", slug: "oxford-formal-shirt", name: "Oxford Formal Shirt", desc: "Tailored fit, full sleeve", price: 1299 },
+  { cat: "shirts", slug: "linen-casual-shirt", name: "Linen Casual Shirt", desc: "Breathable linen blend", price: 1499 },
+  { cat: "shirts", slug: "denim-overshirt", name: "Denim Overshirt", desc: "Heavyweight denim, boxy fit", price: 1799 },
+
+  { cat: "trousers", slug: "slim-fit-chinos", name: "Slim Fit Chinos", desc: "Stretch cotton twill", price: 1199 },
+  { cat: "trousers", slug: "formal-wool-trousers", name: "Formal Wool Trousers", desc: "Wool blend, tapered leg", price: 1899 },
+  { cat: "trousers", slug: "cargo-trousers", name: "Cargo Trousers", desc: "Utility pockets, relaxed fit", price: 1599 },
+
+  { cat: "lowers", slug: "jogger-sweatpants", name: "Jogger Sweatpants", desc: "Fleece-lined, elastic cuff", price: 999 },
+  { cat: "lowers", slug: "track-pants", name: "Track Pants", desc: "Lightweight, side stripe", price: 899 },
+  { cat: "lowers", slug: "cotton-pyjama-lowers", name: "Cotton Pyjama Lowers", desc: "Soft cotton, drawstring waist", price: 649 },
+];
+
+const catNav = document.getElementById('catNav');
+const sectionsWrap = document.getElementById('productSections');
+
+// nav pills
+const allPill = document.createElement('button');
+allPill.className = 'cat-pill active';
+allPill.textContent = 'All';
+allPill.addEventListener('click', () => { window.scrollTo({top:0, behavior:'smooth'}); setActivePill(allPill); });
+catNav.appendChild(allPill);
+
+function setActivePill(pill){
+  document.querySelectorAll('.cat-pill').forEach(p => {
+    p.classList.remove('active');
+    p.style.background = 'transparent';
+    p.style.color = 'var(--muted)';
+  });
+  pill.classList.add('active');
+}
+
+CATEGORIES.forEach(cat => {
+  const pill = document.createElement('button');
+  pill.className = 'cat-pill';
+  pill.innerHTML = `<span class="dot" style="background:${cat.color}"></span>${cat.name}`;
+  pill.addEventListener('click', () => {
+    document.getElementById('section-' + cat.id).scrollIntoView({behavior:'smooth', block:'start'});
+    setActivePill(pill);
+    pill.style.background = cat.color;
+    pill.style.color = '#fff';
+  });
+  catNav.appendChild(pill);
+
+  // section
+  const section = document.createElement('div');
+  section.className = 'category-block';
+  section.id = 'section-' + cat.id;
+
+  const items = PRODUCTS.filter(p => p.cat === cat.id);
+
+  section.innerHTML = `
+    <div class="category-title">
+      <h2 style="color:${cat.color}">${cat.name}</h2>
+      <span class="count">${items.length} styles</span>
+    </div>
+    <div class="product-grid">
+      ${items.map(p => `
+        <div class="product-card">
+          <div class="product-photo">
+            <div class="placeholder-fill" style="background:linear-gradient(150deg, ${cat.color}dd, ${cat.color}88)">
+              ${ICONS[cat.id]}
+              <span>Photo pending</span>
+            </div>
+            <img data-src="images/${p.slug}.jpg" alt="${p.name}" style="display:none">
+            <span class="cat-tag" style="background:${cat.color}">${cat.name}</span>
+          </div>
+          <div class="product-info">
+            <h3>${p.name}</h3>
+            <div class="desc">${p.desc}</div>
+            <div class="product-bottom">
+              <div class="price">₹${p.price}</div>
+              <button class="add-btn" data-name="${p.name}">Add to Bag</button>
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  sectionsWrap.appendChild(section);
+});
+
+// Auto-load real photos if present in /images, else keep placeholder
+document.querySelectorAll('.product-photo img[data-src]').forEach(imgEl => {
+  const testImg = new Image();
+  testImg.onload = () => {
+    imgEl.src = imgEl.dataset.src;
+    imgEl.style.display = 'block';
+    imgEl.previousElementSibling.style.display = 'none';
+  };
+  testImg.onerror = () => { /* keep placeholder */ };
+  testImg.src = imgEl.dataset.src;
+});
+
+// Bag counter (session only, no backend/persistence)
+let bagCount = 0;
+const bagCountEl = document.getElementById('bagCount');
+document.querySelectorAll('.add-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    bagCount += 1;
+    bagCountEl.textContent = bagCount;
+    btn.textContent = 'Added ✓';
+    btn.classList.add('added');
+    setTimeout(() => { btn.textContent = 'Add to Bag'; btn.classList.remove('added'); }, 1200);
+  });
+});
+</script>
+</body>
+</html>
